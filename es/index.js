@@ -192,6 +192,7 @@ var Button = function Button(props) {
 
 
   var Component = null;
+  var customProps = {};
 
   switch (type) {
     case 'a':
@@ -199,22 +200,24 @@ var Button = function Button(props) {
       Component = type;
       break;
     case 'submit':
-      Component = React.createElement('input', { type: 'submit' });
+      Component = 'input';
+      customProps.type = 'submit';
       break;
     case 'reset':
-      Component = React.createElement('input', { type: 'reset' });
+      Component = 'input';
+      customProps.type = 'reset';
       break;
   }
 
   return React.createElement(
     Component,
-    { className: 'button ' + className },
+    _extends({ className: 'button ' + className }, customProps, rest),
     children
   );
 };
 
 Button.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   className: PropTypes.string,
   type: PropTypes.oneOf(['a', 'button', 'submit', 'reset'])
 };

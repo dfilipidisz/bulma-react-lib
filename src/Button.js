@@ -30,12 +30,12 @@ const Button = (props) => {
   // 'input' is self-closing, doesn't have children. sad story.
   if (type === 'submit' || type === 'reset') {
     return (
-      <Component className={`button ${className}`} {...customProps} {...rest} />
+      <Component className={`button ${className || ''}`} {...customProps} {...rest} />
     );
   }
 
   return (
-    <Component className={`button ${className}`} {...customProps} {...rest}>
+    <Component className={`button ${className || ''}`} {...customProps} {...rest}>
       {children}
     </Component>
   );

@@ -9,7 +9,7 @@ const Box = (props) => {
   } = props;
 
   return (
-    <div className={`box ${className}`} {...rest}>
+    <div className={`box ${className || ''}`} {...rest}>
       {children}
     </div>
   );

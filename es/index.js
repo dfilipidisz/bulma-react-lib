@@ -246,7 +246,15 @@ var Button = function Button(props) {
       break;
   }
 
-  var compClass = cn('button', className, mapColorToClass(color), mapSizeToClass(size), 'is-outlined', 'is-inverted', 'is-hovered', 'is-focused', 'is-active', 'is-loading', 'is-static');
+  var compClass = cn('button', className, mapColorToClass(color), mapSizeToClass(size), {
+    'is-outlined': outlined,
+    'is-inverted': inverted,
+    'is-hovered': hovered,
+    'is-focused': focus,
+    'is-active': active,
+    'is-loading': loading,
+    'is-static': isStatic
+  });
 
   // 'input' is self-closing, doesn't have children. sad story.
   if (type === 'submit' || type === 'reset') {

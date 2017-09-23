@@ -10,6 +10,7 @@ const Button = (props) => {
   } = props;
 
   let Component = null;
+  let customProps = {};
 
   switch (type) {
     case 'a':
@@ -17,22 +18,27 @@ const Button = (props) => {
       Component = type;
       break;
     case 'submit':
-      Component = <input type="submit" />;
+      Component = 'input';
+      customProps.type = 'submit';
       break;
     case 'reset':
-      Component = <input type="reset" />;
+      Component = 'input';
+      customProps.type = 'reset';
       break;
   }
 
   return (
-    <Component className={`button ${className}`}>
+    <Component className={`button ${className}`} {...customProps} {...rest}>
       {children}
     </Component>
   );
 };
 
 Button.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.string
+  ]),
   className: PropTypes.string,
   type: PropTypes.oneOf(['a', 'button', 'submit', 'reset']),
 };

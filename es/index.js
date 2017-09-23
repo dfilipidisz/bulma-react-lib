@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 var asyncGenerator = function () {
   function AwaitValue(value) {
@@ -174,7 +175,7 @@ var Box = function Box(props) {
 
   return React.createElement(
     'div',
-    _extends({ className: 'box ' + className }, rest),
+    _extends({ className: 'box ' + (className || '') }, rest),
     children
   );
 };
@@ -209,9 +210,16 @@ var Button = function Button(props) {
       break;
   }
 
+  var compClass = cn('button', className);
+
+  // 'input' is self-closing, doesn't have children. sad story.
+  if (type === 'submit' || type === 'reset') {
+    return React.createElement(Component, _extends({ className: compClass }, customProps, rest));
+  }
+
   return React.createElement(
     Component,
-    _extends({ className: 'button ' + className }, customProps, rest),
+    _extends({ className: compClass }, customProps, rest),
     children
   );
 };

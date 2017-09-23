@@ -13,7 +13,8 @@ export default {
   },
   external: [
     'react',
-    'prop-types'
+    'prop-types',
+    'classnames'
   ],
   plugins: [
     resolve({ jsnext: true }),

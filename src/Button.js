@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 import PropTypes from 'prop-types';
 
 const Button = (props) => {
@@ -27,15 +28,17 @@ const Button = (props) => {
       break;
   }
 
+  const compClass = cn('button', className);
+
   // 'input' is self-closing, doesn't have children. sad story.
   if (type === 'submit' || type === 'reset') {
     return (
-      <Component className={`button ${className || ''}`} {...customProps} {...rest} />
+      <Component className={compClass} {...customProps} {...rest} />
     );
   }
 
   return (
-    <Component className={`button ${className || ''}`} {...customProps} {...rest}>
+    <Component className={compClass} {...customProps} {...rest}>
       {children}
     </Component>
   );

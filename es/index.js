@@ -185,11 +185,47 @@ Box.propTypes = {
   className: PropTypes.string
 };
 
+var COLORS = ['white', 'light', 'dark', 'black', 'link', 'primary', 'info', 'success', 'warning', 'danger'];
+var SIZES = ['small', 'normal', 'medium', 'large'];
+
+var mapColorToClass = function mapColorToClass(color) {
+  return {
+    'is-white': color === 'white',
+    'is-light': color === 'light',
+    'is-dark': color === 'dark',
+    'is-black': color === 'black',
+    'is-link': color === 'link',
+    'is-primary': color === 'primary',
+    'is-info': color === 'info',
+    'is-success': color === 'success',
+    'is-warning': color === 'warning',
+    'is-danger': color === 'danger'
+  };
+};
+
+var mapSizeToClass = function mapSizeToClass(size) {
+  return {
+    'is-small': size === 'small',
+    'is-medium': size === 'medium',
+    'is-large': size === 'large'
+  };
+};
+
 var Button = function Button(props) {
   var children = props.children,
       className = props.className,
       type = props.type,
-      rest = objectWithoutProperties(props, ['children', 'className', 'type']);
+      color = props.color,
+      size = props.size,
+      outlined = props.outlined,
+      inverted = props.inverted,
+      hovered = props.hovered,
+      focus = props.focus,
+      active = props.active,
+      loading = props.loading,
+      isStatic = props.static,
+      disabled = props.disabled,
+      rest = objectWithoutProperties(props, ['children', 'className', 'type', 'color', 'size', 'outlined', 'inverted', 'hovered', 'focus', 'active', 'loading', 'static', 'disabled']);
 
 
   var Component = null;
@@ -210,16 +246,16 @@ var Button = function Button(props) {
       break;
   }
 
-  var compClass = cn('button', className);
+  var compClass = cn('button', className, mapColorToClass(color), mapSizeToClass(size), 'is-outlined', 'is-inverted', 'is-hovered', 'is-focused', 'is-active', 'is-loading', 'is-static');
 
   // 'input' is self-closing, doesn't have children. sad story.
   if (type === 'submit' || type === 'reset') {
-    return React.createElement(Component, _extends({ className: compClass }, customProps, rest));
+    return React.createElement(Component, _extends({ className: compClass, disabled: disabled }, customProps, rest));
   }
 
   return React.createElement(
     Component,
-    _extends({ className: compClass }, customProps, rest),
+    _extends({ className: compClass, disabled: disabled }, customProps, rest),
     children
   );
 };
@@ -227,7 +263,17 @@ var Button = function Button(props) {
 Button.propTypes = {
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   className: PropTypes.string,
-  type: PropTypes.oneOf(['a', 'button', 'submit', 'reset'])
+  type: PropTypes.oneOf(['a', 'button', 'submit', 'reset']),
+  color: PropTypes.oneOf(COLORS),
+  size: PropTypes.oneOf(SIZES),
+  outlined: PropTypes.bool,
+  inverted: PropTypes.bool,
+  hovered: PropTypes.bool,
+  focus: PropTypes.bool,
+  active: PropTypes.bool,
+  loading: PropTypes.bool,
+  static: PropTypes.bool,
+  disabled: PropTypes.bool
 };
 
 Button.defaultProps = {
